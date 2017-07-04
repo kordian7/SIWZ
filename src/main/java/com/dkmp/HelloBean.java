@@ -21,10 +21,10 @@ public class HelloBean {
 	TestDao testDao;
 
 	public String getMessage() {
-		Recenzent rec1 = new Recenzent("Adam", "Kowalski", 3);
-		Recenzent rec2 = new Recenzent("Bartosz", "Kowalski", 6);
-		Recenzent rec3 = new Recenzent("Cezary", "Kowalski", 5);
-		Recenzent rec4 = new Recenzent("Damian", "Kowalski", 7);
+		Recenzent rec1 = new Recenzent(1L, "Adam", "Kowalski", 3);
+		Recenzent rec2 = new Recenzent(2L, "Bartosz", "Kowalski", 6);
+		Recenzent rec3 = new Recenzent(3L, "Cezary", "Kowalski", 5);
+		Recenzent rec4 = new Recenzent(4L, "Damian", "Kowalski", 7);
 
 		List<Recenzent> recs = new ArrayList<Recenzent>();
 		recs.add(rec1);
