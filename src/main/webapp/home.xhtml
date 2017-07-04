@@ -4,16 +4,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-	<title>Portal Prac Studenckich</title>
-</h:head>
 
 <h:body>
-	<h:form>
-      Witaj #{userSessionBean.username}
-      <h:commandLink action="#{loginBean.logout}" value="Logout" />
-	</h:form>
+	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+      			Witaj #{userSessionBean.username}
+			</h:form>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>
