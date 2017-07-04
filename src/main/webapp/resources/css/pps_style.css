@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";
+
+.header-panelgrid.ui-panelgrid>*>tr,
+.header-panelgrid.ui-panelgrid>*>tr>td {
+    border: none;
+}

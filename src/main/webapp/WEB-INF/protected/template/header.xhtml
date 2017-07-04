@@ -12,13 +12,15 @@
 	    <ui:composition>
 
 			<h:form>
-				<p:panelGrid columns="2" style="width:100%;" >
-					<h:outputText value="Portal Prac" />
+				<!-- Do sprawdzania role użytkowników -->
+				<p:panelGrid columns="2" style="width:calc(100% - 30px);" styleClass="header-panelgrid" >
+					<h:outputText value="Portal Prac Studenckich" />
 					<p:menubar style="width:100%;">
 						<p:menuitem value="Strona główna" action="/home.xhtml" />
-						
+						<p:menuitem rendered="#{true}" value="Moja praca" action="/student/praca.xhtml" />
+						<p:menuitem rendered="#{true}" value="Prace" action="/promotor/prace.xhtml" />
 						<f:facet name="options">
-							<h:commandLink action="#{loginBean.logout}" value="Logout" />
+							<h:commandLink action="#{loginBean.logout}" value="Wyloguj" />
 						</f:facet>
 					</p:menubar>
 				</p:panelGrid>
