@@ -2,6 +2,7 @@ package com.dkmp.model;
 
 public class Recenzent {
 
+	private long id;
 	private String imie;
 	private String nazwisko;
 	private int ilPrac;
@@ -9,8 +10,9 @@ public class Recenzent {
 	
 	public Recenzent() {}
 	
-	public Recenzent(String imie, String nazwisko, int ilPrac) {
+	public Recenzent(long id, String imie, String nazwisko, int ilPrac) {
 		super();
+		this.id = id;
 		this.imie = imie;
 		this.nazwisko = nazwisko;
 		this.ilPrac = ilPrac;
@@ -39,6 +41,32 @@ public class Recenzent {
 	}
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getFormattedInfo() { 
+		return imie + " " + nazwisko;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Recenzent other = (Recenzent) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	@Override

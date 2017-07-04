@@ -1,16 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
-    <h:body>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-    	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
 
-    	</ui:composition>
-
-    </h:body>
-
+<h:body>
+	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
+		<ui:define name="content">
+			<pe:layoutPane id="buttons" position="north" resizable="false"
+				closable="false" spacingOpen="0">
+				<h:form>
+					<p:menubar style="width:95%;">
+						<p:menuitem value="Prześlij propozycję recenzentów"
+							disabled="#{pracaBean.praca.status != 'WAITING_FOR_REC_CHOOSE'}"
+							actionListener="#{pracaBean.przeslijPropozycjeRecenzentow()}" />
+						<p:menuitem value="Zatwierdź propozycję recenzentów"
+							disabled="#{pracaBean.praca.status != 'WAITING_FOR_STUDENT_REC_CONFIRM'}"
+							actionListener="#{pracaBean.zatwierdzPropozycjeRecenzentow()}" />
+					</p:menubar>
+				</h:form>
+			</pe:layoutPane>
+			<pe:layoutPane id="praca-content" position="center" resizable="false"
+				closable="false" spacingOpen="0">
+				<h:form>
+				<p:panelGrid colspan="2">
+					<p:row>
+						<p:column>
+							<h:outputLabel for="praca-tytul" value="Tytuł pracy: " />
+							<h:outputText id="praca-tytul"
+								value="#{pracaBean.praca.tytulPracy}" />
+						</p:column>
+						<p:column rowspan="2">
+							<p:pickList id="recenzent-picklist" 
+								value="#{pracaBean.recenzenciPickListModel}"
+								var="rec" itemValue="#{rec}" itemLabel="#{rec.formattedInfo}"
+								showCheckbox="true" responsive="true" showSourceFilter="true"
+								showTargetFilter="true" filterMatchMode="contains"
+								converter="entityConverter" >
+								<p:ajax event="transfer" immediate="true" update="@this" />
+							</p:pickList>
+							
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel for="praca-promotor" value="Promotor: " />
+							<h:outputText id="praca-promotor"
+								value="#{pracaBean.praca.promotor.formattedInfo} " />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				</h:form>
+			</pe:layoutPane>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

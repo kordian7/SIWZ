@@ -1,13 +1,20 @@
 package com.dkmp.auth;
 
-import javax.faces.bean.SessionScoped;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
+import org.springframework.context.annotation.Scope;
+
 @Named
-@SessionScoped
+@Scope(value="session")
 public class UserSessionBean {
 	private String username;
 	private Long userId;
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("UserSessionBean.init()");
+	}
 	
 	public void initialize(String username, Long userId) {
 		this.username = username;
