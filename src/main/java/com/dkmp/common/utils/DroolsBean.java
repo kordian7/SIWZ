@@ -1,9 +1,11 @@
 package com.dkmp.common.utils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Named;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieSession;
@@ -12,13 +14,18 @@ import com.dkmp.common.exceptions.ValidateException;
 import com.dkmp.model.Praca;
 import com.dkmp.model.Recenzent;
 
-public class DroolsUtils {
+@Named
+public class DroolsBean {
 
-	public static List<Recenzent> filtrujRecenzentowWgZasadBiznesowych(List<Recenzent> recenzenci) {
+	@PostConstruct
+	public void init() {
+		// Przy pierwszym u¿yciu zabiera sporo czasu
+		KieServices.Factory.get().getKieClasspathContainer().newKieSession("RecenzentKS").dispose();
+	}
+	
+	public List<Recenzent> filtrujRecenzentowWgZasadBiznesowych(List<Recenzent> recenzenci) {
 		List<Recenzent> filtredRecenzenci = new ArrayList<Recenzent>(recenzenci);
-		System.out.println(new Date());
 		KieSession kSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("RecenzentKS");
-		System.out.println(new Date());
 		filtredRecenzenci.forEach(rec -> kSession.insert(rec));
 		kSession.fireAllRules();
 		kSession.dispose();
@@ -26,10 +33,8 @@ public class DroolsUtils {
 	}
 	
 
-	public static void validateRegulyBiznesowePracy(Praca praca) throws ValidateException {
-		System.out.println(new Date());
+	public void validateRegulyBiznesowePracy(Praca praca) throws ValidateException {
 		KieSession kSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("PracaKS");
-		System.out.println(new Date());
 		kSession.insert(praca);
 		kSession.fireAllRules();
 		kSession.dispose();

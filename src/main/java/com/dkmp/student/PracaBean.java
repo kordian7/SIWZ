@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Scope;
 
 import com.dkmp.auth.UserSessionBean;
 import com.dkmp.common.exceptions.ValidateException;
-import com.dkmp.common.utils.DroolsUtils;
+import com.dkmp.common.utils.DroolsBean;
 import com.dkmp.common.web.WebMessageAdder;
 import com.dkmp.dao.PracaDao;
 import com.dkmp.dao.RecenzentDao;
@@ -34,6 +34,9 @@ public class PracaBean implements Serializable {
 	@Inject
 	RecenzentDao recenzentDao;
 	
+	@Inject
+	DroolsBean droolsBean;
+	
 	private Praca praca;
 	
 	private DualListModel<Recenzent> recenzenciPickListModel;
@@ -52,7 +55,7 @@ public class PracaBean implements Serializable {
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
 		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
-			DroolsUtils.validateRegulyBiznesowePracy(praca);
+			droolsBean.validateRegulyBiznesowePracy(praca);
 			pracaDao.przeslijPropozycjeRecenzentowStudenta(praca);
 			praca.setStatus(Status.WAITING_FOR_PROMOTOR_REC_CONFIRM);
 			WebMessageAdder.addInfoMessage("Przes³ano propozycjê recenzentow");
@@ -67,7 +70,7 @@ public class PracaBean implements Serializable {
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
 		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
-			DroolsUtils.validateRegulyBiznesowePracy(praca);
+			droolsBean.validateRegulyBiznesowePracy(praca);
 			pracaDao.zatwierdzPropozycjeRecenzentow(praca);
 			praca.setStatus(Status.REC_CONFIRMED);
 			WebMessageAdder.addInfoMessage("Zatwierdzono recenzentow");
@@ -92,13 +95,13 @@ public class PracaBean implements Serializable {
 	}
 	
 	private void zaladujPropozycjeRecenzentow() {
-		List<Recenzent> wybraniRecenzenci = DroolsUtils.filtrujRecenzentowWgZasadBiznesowych(praca.getListaProponowanychRecenzentow());
+		List<Recenzent> wybraniRecenzenci = droolsBean.filtrujRecenzentowWgZasadBiznesowych(praca.getListaProponowanychRecenzentow());
 		List<Recenzent> dostepniRecenzenci = filtrujRecenzentow(recenzentDao.getAllRecenzenci(), wybraniRecenzenci );
 		recenzenciPickListModel = new DualListModel<Recenzent>(dostepniRecenzenci, wybraniRecenzenci);
 	}
 	
 	private List<Recenzent> filtrujRecenzentow(List<Recenzent> wszyscyRecenzenci, List<Recenzent> wybraniRecenzenci) {
-		List<Recenzent> filtredRecenzenci = DroolsUtils.filtrujRecenzentowWgZasadBiznesowych(wszyscyRecenzenci);
+		List<Recenzent> filtredRecenzenci = droolsBean.filtrujRecenzentowWgZasadBiznesowych(wszyscyRecenzenci);
 		filtredRecenzenci.remove(wybraniRecenzenci);
 		return filtredRecenzenci;
 	}
