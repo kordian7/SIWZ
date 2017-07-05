@@ -15,7 +15,10 @@ version="2.2">
     	<navigation-handler>
     		com.dkmp.common.web.DefaultRedirectNavigationHandler
     	</navigation-handler>
-
+		<resource-bundle>
+			<base-name>com.dkmp.application</base-name>
+			<var>properties</var>
+	   	</resource-bundle>
 
 	</application>
 
