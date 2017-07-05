@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 @FacesConverter(value = "entityConverter")
-public class PickListConverter2 implements Converter {
+public class PickListConverter implements Converter {
 
 	private static Map<Object, String> entities = new WeakHashMap<Object, String>();
 
