@@ -12,4 +12,10 @@ public interface PracaDao {
 	
 	Praca getPracaById(Long pracaId);
 	
+	boolean zatwierdzPropozycjeRecenzentow(Praca praca);
+
+	boolean przeslijPropozycjeRecenzentowStudenta(Praca praca);
+
+	boolean przeslijPropozycjeRecenzentowPromotora(Praca praca);
+	
 }

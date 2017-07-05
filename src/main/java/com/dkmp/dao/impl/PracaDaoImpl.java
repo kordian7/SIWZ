@@ -85,4 +85,22 @@ public class PracaDaoImpl implements PracaDao {
 		return praca;
 	}
 
+	@Override
+	public boolean przeslijPropozycjeRecenzentowStudenta(Praca praca) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean przeslijPropozycjeRecenzentowPromotora(Praca praca) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean zatwierdzPropozycjeRecenzentow(Praca praca) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -57,9 +57,9 @@ public class PracaBean implements Serializable {
 		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
 			validateRegulyBiznesowePracy();
+			pracaDao.przeslijPropozycjeRecenzentowStudenta(praca);
 			praca.setStatus(Status.WAITING_FOR_PROMOTOR_REC_CONFIRM);
 			throwInfoMessage("Przes³ano propozycjê recenzentow");
-			// TODO - wywo³anie z serwisu
 		} catch (ValidateException e) {
 			throwErrorMessage(e.getMessage());
 		}
@@ -72,9 +72,9 @@ public class PracaBean implements Serializable {
 		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
 			validateRegulyBiznesowePracy();
+			pracaDao.zatwierdzPropozycjeRecenzentow(praca);
 			praca.setStatus(Status.REC_CONFIRMED);
 			throwInfoMessage("Zatwierdzono recenzentow");
-			// TODO - wywo³anie z serwisu
 		} catch (ValidateException e) {
 			throwErrorMessage(e.getMessage());
 		}
