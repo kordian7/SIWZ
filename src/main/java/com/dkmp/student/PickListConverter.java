@@ -1,48 +1,41 @@
 package com.dkmp.student;
 
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import org.primefaces.component.picklist.PickList;
-import org.primefaces.model.DualListModel;
+@FacesConverter(value = "entityConverter")
+public class PickListConverter2 implements Converter {
 
-import com.dkmp.model.Recenzent;
+	private static Map<Object, String> entities = new WeakHashMap<Object, String>();
 
-@FacesConverter(value = "recenzentPickListConverter")
-public class PickListConverter implements Converter {
 	@Override
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
-		Object ret = null;
-		if (arg1 instanceof PickList) {
-			Object dualList = ((PickList) arg1).getValue();
-			DualListModel dl = (DualListModel) dualList;
-			for (Object o : dl.getSource()) {
-				String id = "" + ((Recenzent) o).getId();
-				if (arg2.equals(id)) {
-					ret = o;
-					break;
-				}
+	public String getAsString(FacesContext context, UIComponent component, Object entity) {
+		synchronized (entities) {
+			if (!entities.containsKey(entity)) {
+				String uuid = UUID.randomUUID().toString();
+				entities.put(entity, uuid);
+				return uuid;
+			} else {
+				return entities.get(entity);
 			}
-			if (ret == null)
-				for (Object o : dl.getTarget()) {
-					String id = "" + ((Recenzent) o).getId();
-					if (arg2.equals(id)) {
-						ret = o;
-						break;
-					}
-				}
 		}
-		return ret;
 	}
 
 	@Override
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		String str = "";
-		if (arg2 instanceof Recenzent) {
-			str = "" + ((Recenzent) arg2).getId();
+	public Object getAsObject(FacesContext context, UIComponent component, String uuid) {
+		for (Entry<Object, String> entry : entities.entrySet()) {
+			if (entry.getValue().equals(uuid)) {
+				return entry.getKey();
+			}
 		}
-		return str;
+		return null;
 	}
+
 }
