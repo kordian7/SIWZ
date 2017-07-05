@@ -32,12 +32,9 @@ public class HelloBean {
 		recs.add(rec3);
 		recs.add(rec4);
 		KieSession kSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("RecenzentKS");
-		System.out.println("kSession: " + kSession);
 		recs.forEach(rec -> kSession.insert(rec));
 		kSession.fireAllRules();
 		kSession.dispose();
-		System.out.println("TEST REC");
-		recs.stream().filter(rec -> rec.isAvailable()).forEach(rec -> System.out.println(rec));
 		return "Hello World" + testDao.getTest();
 	}
 }

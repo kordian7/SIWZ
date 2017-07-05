@@ -46,14 +46,11 @@ public class PracaBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		praca = pracaDao.getStudentPraca(userSessionBean.getUserId());
-		System.out.println("PracaBean init()");
 		zaladujPropozycjeRecenzentow();
 	}
 	
 	public void przeslijPropozycjeRecenzentow() {
-		System.out.println("przeslijPropozycjeRecenzentow()");
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
-		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
 			droolsBean.validateRegulyBiznesowePracy(praca);
 			pracaDao.przeslijPropozycjeRecenzentowStudenta(praca);
@@ -66,9 +63,7 @@ public class PracaBean implements Serializable {
 	
 
 	public void zatwierdzPropozycjeRecenzentow() {
-		System.out.println("zatwierdzPropozycjeRecenzentow()");
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
-		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
 			droolsBean.validateRegulyBiznesowePracy(praca);
 			pracaDao.zatwierdzPropozycjeRecenzentow(praca);
@@ -84,12 +79,10 @@ public class PracaBean implements Serializable {
 	}
 	
 	public void onPickListTransfer() {
-		System.out.println("onPickListTransfer()");
 		pickListModified = true;
 	}
 	
 	public void resetPickList() {
-		System.out.println("resetPickList()");
 		pickListModified = false;
 		zaladujPropozycjeRecenzentow();
 	}

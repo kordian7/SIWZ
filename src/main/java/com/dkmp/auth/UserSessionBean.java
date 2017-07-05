@@ -14,7 +14,6 @@ public class UserSessionBean {
 	
 	@PostConstruct
 	public void init() {
-		System.out.println("UserSessionBean.init()");
 	}
 	
 	public void initialize(String username, Long userId, AppRole appRole) {

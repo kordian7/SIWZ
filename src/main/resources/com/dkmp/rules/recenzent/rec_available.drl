@@ -24,7 +24,6 @@ no-loop true
     when
         recenzent : Recenzent(ilPrac <= 5)
     then
-        System.out.println( "Recenzent " + recenzent.getImie() + " " + recenzent.getNazwisko() + " zmieniam na dostepny" );
         modify( recenzent ) { 
             setAvailable ( true )
         }

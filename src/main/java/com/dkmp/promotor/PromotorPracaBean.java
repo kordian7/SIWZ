@@ -51,8 +51,6 @@ public class PromotorPracaBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		System.out.println("PromotorPracaBean init()");
-
 		try {
 			idPraca = getIdPracyFromParam();
 			validatePrace();
@@ -96,9 +94,7 @@ public class PromotorPracaBean implements Serializable {
 	}
 
 	public void przeslijPropozycjeRecenzentow() {
-		System.out.println("przeslijPropozycjeRecenzentow()");
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
-		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
 			droolsBean.validateRegulyBiznesowePracy(praca);
 			pracaDao.przeslijPropozycjeRecenzentowPromotora(praca);
@@ -110,9 +106,7 @@ public class PromotorPracaBean implements Serializable {
 	}
 
 	public void zatwierdzPropozycjeRecenzentow() {
-		System.out.println("zatwierdzPropozycjeRecenzentow()");
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
-		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
 			droolsBean.validateRegulyBiznesowePracy(praca);
 			pracaDao.zatwierdzPropozycjeRecenzentow(praca);

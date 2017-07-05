@@ -25,7 +25,6 @@ no-loop true
     when
         praca : Praca(listaProponowanychRecenzentow.size() == 3)
     then
-    	System.out.println( "Praca validate Ok: " + praca.getListaProponowanychRecenzentow().size());
         modify( praca ) { setPracaOk ( true ) }
         modify( praca ) { setPracaValidationError ( null ) }
 end
@@ -36,7 +35,6 @@ no-loop true
     when
         praca : Praca(listaProponowanychRecenzentow.size() != 3)
     then
-    	System.out.println( "Praca validate notOk: " + praca.getListaProponowanychRecenzentow().size());
         modify( praca ) { setPracaOk ( false ) }
         modify( praca ) { setPracaValidationError ( "Nalezy wybrac 3 recenzentow" ) }
 end

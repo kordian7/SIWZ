@@ -28,8 +28,6 @@ public class LoginDaoImpl implements LoginDao {
 			ResponseEntity<LoginResponse> response = new RestTemplate()
 					.exchange(bundleProducer.getBundle().getString("server.url") + "/session/login", HttpMethod.POST, request, LoginResponse.class);
 			loginResponse = response.getBody();
-			System.out.println("Response: " + loginResponse.getToken() + " " + loginResponse.getRole() + " "
-					+ response.getStatusCode());
 		} catch (Exception e) {
 			throw new AuthenticationException();
 		}

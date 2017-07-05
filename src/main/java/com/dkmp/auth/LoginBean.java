@@ -30,7 +30,6 @@ public class LoginBean implements Serializable {
 	private String password;
 
 	public String validateUser() {
-		// TODO stworzenie sesji
 		try {
 			LoginResponse loginResponse = loginDao.authenticateUser(getUsername(), getPassword());
 			HttpSession session = SessionUtils.getSession();
@@ -48,7 +47,7 @@ public class LoginBean implements Serializable {
 	public String logout() {
 		SessionUtils.getSession().invalidate();
 		userSessionBean.invalidate();
-		return "login?faces-redirect=true";
+		return "login";
 	}
 
 	private void throwLoginErrorMessage() {
