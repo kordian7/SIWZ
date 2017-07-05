@@ -1,5 +1,8 @@
 package com.dkmp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Recenzent {
 
 	private long id;
