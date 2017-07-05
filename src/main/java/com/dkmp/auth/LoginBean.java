@@ -41,7 +41,7 @@ public class LoginBean implements Serializable {
 			return "home";
 		} catch (AuthenticationException e) {
 			throwLoginErrorMessage();
-			return "login";
+			return null;
 		}
 	}
 	
