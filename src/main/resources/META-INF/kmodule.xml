@@ -6,5 +6,9 @@
 	<kbase name="RecenzentKB" packages="com.dkmp.rules.recenzent">
         <ksession name="RecenzentKS"/>
     </kbase>
+    
+    <kbase name="PracaKB" packages="com.dkmp.rules.praca">
+        <ksession name="PracaKS"/>
+    </kbase>
 
 </kmodule>

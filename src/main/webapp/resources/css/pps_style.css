@@ -4,3 +4,13 @@
 .header-panelgrid.ui-panelgrid>*>tr>td {
     border: none;
 }
+
+// Do poprawy scrolle w headerze i w headerze contentu
+.no-overflow {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+// Ukrycie komentarza przy pustym dataList
+.ui-datalist-empty-message {
+    display: none;
+}

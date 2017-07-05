@@ -6,10 +6,21 @@ import java.util.List;
 public class Praca {
 	
 	public enum Status {
-		WAITING_FOR_REC_CHOOSE,
-		WAITING_FOR_PROMOTOR_REC_CONFIRM,
-		WAITING_FOR_STUDENT_REC_CONFIRM,
-		REC_CONFIRMED
+		WAITING_FOR_REC_CHOOSE("Oczekuj¹ca na wybór recenzentów przez studenta"),
+		WAITING_FOR_PROMOTOR_REC_CONFIRM("Oczekuj¹ca na potwierdzenie recenzentów przez promotora"),
+		WAITING_FOR_STUDENT_REC_CONFIRM("Oczekuj¹ca na potwierdzenie recenzentów przez studenta"),
+		REC_CONFIRMED("Recenzenci potwierdzeni");
+		
+		private String string;
+		
+		Status(String string) {
+			this.string = string;
+		}
+		
+		@Override
+		public String toString() {
+			return string;
+		}
 	}
 	
 	private long idPracy;
@@ -20,6 +31,8 @@ public class Praca {
 	private List<Recenzent> listaProponowanychRecenzentow;
 	
 	private Status status;
+	private boolean pracaOk = true;
+	private String pracaValidationError;
 	
 	public Praca() {
 		listaRecenzentow = new ArrayList<>();
@@ -80,6 +93,22 @@ public class Praca {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public boolean isPracaOk() {
+		return pracaOk;
+	}
+	
+	public void setPracaOk(boolean pracaOk) {
+		this.pracaOk = pracaOk;
+	}
+
+	public String getPracaValidationError() {
+		return pracaValidationError;
+	}
+
+	public void setPracaValidationError(String pracaValidationError) {
+		this.pracaValidationError = pracaValidationError;
 	}
 	
 }
