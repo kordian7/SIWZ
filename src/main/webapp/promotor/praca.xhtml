@@ -50,7 +50,7 @@
 										listener="#{promotorPracaBean.onPickListTransfer()}"
 										update=":#{p:component('actions-menubar')}" />
 								</p:pickList>
-								<p:dataList id="recenzent-list"
+								<p:dataList id="recenzent-list" value="#{promotorPracaBean.praca.listaRecenzentow}"
 									rendered="#{promotorPracaBean.praca.status == 'REC_CONFIRMED' or promotorPracaBean.praca.status == 'WAITING_FOR_REC_CHOOSE'}"
 									var="rec" type="ordered">
 									<f:facet name="header">

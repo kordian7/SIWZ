@@ -34,10 +34,10 @@ public class LoginBean implements Serializable {
 		try {
 			LoginResponse loginResponse = loginDao.authenticateUser(getUsername(), getPassword());
 			HttpSession session = SessionUtils.getSession();
+			Long userId = Long.valueOf(loginResponse.getToken());
 			session.setAttribute("username", getUsername());
-			session.setAttribute("userId", Long.valueOf(loginResponse.getToken()));
-			userSessionBean.initialize(getUsername(), Long.valueOf(loginResponse.getToken()));
-			// TODO - dodanie roli
+			session.setAttribute("userId", userId);
+			userSessionBean.initialize(getUsername(), userId, loginResponse.getRole());
 			return "home";
 		} catch (AuthenticationException e) {
 			throwLoginErrorMessage();

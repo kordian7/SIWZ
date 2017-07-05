@@ -1,7 +1,6 @@
 package com.dkmp.promotor;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,8 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieSession;
 import org.primefaces.model.DualListModel;
 import org.springframework.context.annotation.Scope;
 

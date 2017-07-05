@@ -17,8 +17,8 @@
 					<h:outputText value="Portal Prac Studenckich" />
 					<p:menubar style="width:100%;">
 						<p:menuitem value="Strona główna" action="/home.xhtml" />
-						<p:menuitem rendered="#{true}" value="Moja praca" action="/student/praca.xhtml" />
-						<p:menuitem rendered="#{true}" value="Prace" action="/promotor/prace.xhtml" />
+						<p:menuitem rendered="#{userSessionBean.appRole == 'STUDENT'}" value="Moja praca" action="/student/praca.xhtml" />
+						<p:menuitem rendered="#{userSessionBean.appRole == 'PROMOTOR'}" value="Prace" action="/promotor/prace.xhtml" />
 						<f:facet name="options">
 							<h:commandLink action="#{loginBean.logout}" value="Wyloguj" />
 						</f:facet>
