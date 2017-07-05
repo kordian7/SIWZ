@@ -17,7 +17,7 @@ public class DefaultRedirectNavigationHandler extends ConfigurableNavigationHand
     
     @Override
     public void handleNavigation(FacesContext context, String from, String outcome) {
-    	if (!outcome.contains("?faces-redirect=true")) {
+    	if (outcome != null && !outcome.contains("?faces-redirect=true")) {
     		if (outcome.contains("?"))
     			outcome += "&faces-redirect=true";
     		else
