@@ -33,7 +33,7 @@
 						<h:outputText value="#{praca.status.toString()}" />
 					</p:column>
 					<p:column headerText="Szczegóły" style="width:80px">
-						<p:commandButton action="#{''.concat('/promotor/praca').concat('?id=1')}" icon="ui-icon-search" title="Przejdź do pracy">
+						<p:commandButton action="#{''.concat('/promotor/praca').concat('?id=').concat(praca.idPracy)}" icon="ui-icon-search" title="Przejdź do pracy">
             			</p:commandButton>
 					</p:column>
 				</p:dataTable>

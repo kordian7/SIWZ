@@ -77,8 +77,8 @@ public class PracaDaoImpl implements PracaDao {
 		praca.setIdPracy(1L);
 		praca.setTytulPracy("Pierwsza praca in¿ynierska");
 		//praca.setStatus(Praca.Status.WAITING_FOR_REC_CHOOSE);
-		praca.setStatus(Praca.Status.WAITING_FOR_STUDENT_REC_CONFIRM);
-		//praca.setStatus(Praca.Status.WAITING_FOR_PROMOTOR_REC_CONFIRM);
+		//praca.setStatus(Praca.Status.WAITING_FOR_STUDENT_REC_CONFIRM);
+		praca.setStatus(Praca.Status.WAITING_FOR_PROMOTOR_REC_CONFIRM);
 		//praca.setStatus(Praca.Status.REC_CONFIRMED);
 		praca.setPromotor(promotor);
 		praca.setStudent(student);
