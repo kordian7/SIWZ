@@ -40,8 +40,6 @@ public class PracaBean implements Serializable {
 	
 	private Praca praca;
 	
-	private String console;
-	
 	private DualListModel<Recenzent> recenzenciPickListModel;
 	
 	private boolean pickListModified = false;
@@ -151,14 +149,6 @@ public class PracaBean implements Serializable {
 
 	public void setRecenzenciPickListModel(DualListModel<Recenzent> recenzenciPickListModel) {
 		this.recenzenciPickListModel = recenzenciPickListModel;
-	}
-
-	public String getConsole() {
-		return console;
-	}
-
-	public void setConsole(String console) {
-		this.console = console;
 	}
 
 	public boolean isPickListModified() {

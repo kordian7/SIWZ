@@ -6,6 +6,21 @@ public class Student {
 	private String nazwisko;
 	private Praca praca;
 	
+	public Student() {
+		
+	}
+
+	public Student(long id, String imie, String nazwisko) {
+		super();
+		this.id = id;
+		this.imie = imie;
+		this.nazwisko = nazwisko;
+	}
+	
+	public String getFormattedInfo() { 
+		return imie + " " + nazwisko;
+	}
+
 	public long getId() {
 		return id;
 	}

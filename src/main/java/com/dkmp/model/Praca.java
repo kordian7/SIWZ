@@ -29,8 +29,8 @@ public class Praca {
 	private Promotor promotor;
 	private List<Recenzent> listaRecenzentow;
 	private List<Recenzent> listaProponowanychRecenzentow;
-	
 	private Status status;
+	
 	private boolean pracaOk = true;
 	private String pracaValidationError;
 	
