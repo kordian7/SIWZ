@@ -47,7 +47,7 @@ public class LoginBean implements Serializable {
 	public String logout() {
 		SessionUtils.getSession().invalidate();
 		userSessionBean.invalidate();
-		return "login";
+		return "/login.xhtml";
 	}
 
 	private void throwLoginErrorMessage() {
