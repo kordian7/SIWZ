@@ -6,6 +6,11 @@
    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
    id = "WebApp_ID" version="2.5">
 	
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>bootstrap</param-value>
+	</context-param>
+	
    <welcome-file-list>
       <welcome-file>faces/home.xhtml</welcome-file>
    </welcome-file-list>
@@ -41,5 +46,28 @@
       <servlet-name>Faces Servlet</servlet-name>
       <url-pattern>*.xhtml</url-pattern>
    </servlet-mapping>
+   
+   	<session-config>
+     <session-timeout>
+         30
+     </session-timeout>
+ 	</session-config>
+		
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+	
+	<!-- FONT AWESOME -->
+	<context-param>
+   		<param-name>primefaces.FONT_AWESOME</param-name>
+    	<param-value>true</param-value>
+	</context-param>
 	
 </web-app>

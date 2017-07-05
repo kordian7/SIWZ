@@ -8,4 +8,26 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
 
 version="2.2">
 
+	<application>
+	    <el-resolver>
+	        org.springframework.web.jsf.el.SpringBeanFacesELResolver
+	    </el-resolver>
+    	<navigation-handler>
+    		com.dkmp.common.web.DefaultRedirectNavigationHandler
+    	</navigation-handler>
+		<resource-bundle>
+			<base-name>com.dkmp.application</base-name>
+			<var>properties</var>
+	   	</resource-bundle>
+
+	</application>
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 </faces-config>

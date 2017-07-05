@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:body>
+	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
+		<ui:define name="content">
+			<pe:layoutPane id="buttons" position="north" resizable="false"
+				closable="false" spacingOpen="0">
+				<h:form rendered="#{promotorPracaBean.isPracaValidPromotorPraca()}">
+					<p:menubar id="actions-menubar" style="width:95%;">
+						<p:menuitem value="Prześlij propozycję recenzentów"
+							disabled="#{not (promotorPracaBean.praca.status == 'WAITING_FOR_PROMOTOR_REC_CONFIRM' and promotorPracaBean.pickListModified)}"
+							actionListener="#{promotorPracaBean.przeslijPropozycjeRecenzentow()}" update="@all"/>
+						<p:menuitem value="Zatwierdź propozycję recenzentów"
+							disabled="#{promotorPracaBean.praca.status != 'WAITING_FOR_PROMOTOR_REC_CONFIRM' or promotorPracaBean.pickListModified}"
+							actionListener="#{promotorPracaBean.zatwierdzPropozycjeRecenzentow()}" update="@all"/>
+					</p:menubar>
+				</h:form>
+			</pe:layoutPane>
+			<pe:layoutPane id="praca-content" position="center" resizable="false"
+				closable="false" spacingOpen="0">
+				<h:form rendered="#{promotorPracaBean.isPracaValidPromotorPraca()}">
+				
+					<p:growl autoUpdate="true" showDetail="true" />
+					<p:panelGrid colspan="2">
+						<p:row>
+							<p:column>
+								<h:outputLabel for="praca-student" value="Student: " />
+								<h:outputText id="praca-student"
+									value="#{promotorPracaBean.praca.student.formattedInfo} " />
+							</p:column>
+							<p:column rowspan="3">
+								<p:pickList id="recenzent-picklist"
+									rendered="#{promotorPracaBean.praca.status != 'REC_CONFIRMED'}"
+									disabled="#{promotorPracaBean.praca.status == 'WAITING_FOR_STUDENT_REC_CONFIRM'}"
+									value="#{promotorPracaBean.recenzenciPickListModel}" var="rec"
+									itemValue="#{rec}" itemLabel="#{rec.formattedInfo}"
+									showCheckbox="true" responsive="true" showSourceFilter="true"
+									showTargetFilter="true" filterMatchMode="contains"
+									converter="entityConverter">
+									<p:ajax event="transfer"
+										listener="#{promotorPracaBean.onPickListTransfer()}"
+										update=":#{p:component('actions-menubar')}" />
+								</p:pickList>
+								<p:dataList id="recenzent-list" value="#{promotorPracaBean.praca.listaRecenzentow}"
+									rendered="#{promotorPracaBean.praca.status == 'REC_CONFIRMED' or promotorPracaBean.praca.status == 'WAITING_FOR_REC_CHOOSE'}"
+									var="rec" type="ordered">
+									<f:facet name="header">
+										<h:outputText value="Wybrani recenzenci" />
+									</f:facet>
+									<h:outputText value="#{rec.formattedInfo}" />
+								</p:dataList>
+
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel for="praca-tytul" value="Tytuł pracy: " />
+								<h:outputText id="praca-tytul"
+									value="#{promotorPracaBean.praca.tytulPracy}" />
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>
+								<h:outputLabel for="praca-status" value="Status: " />
+								<h:outputText id="praca-status"
+									value="#{promotorPracaBean.praca.status.toString()} " />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:form>
+				<!-- Prawdopobodnie Blad Eclipse -->
+				<h:form  rendered="#{not promotorPracaBean.isPracaValidPromotorPraca()}">
+					<h:outputText value="#{promotorPracaBean.pracaNotValidPromotorPracaMessage}" />
+				</h:form>
+			</pe:layoutPane>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

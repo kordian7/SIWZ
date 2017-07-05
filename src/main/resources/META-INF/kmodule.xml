@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.drools.org/xsd/kmodule">
+
+
+	<kbase name="RecenzentKB" packages="com.dkmp.rules.recenzent">
+        <ksession name="RecenzentKS"/>
+    </kbase>
+    
+    <kbase name="PracaKB" packages="com.dkmp.rules.praca">
+        <ksession name="PracaKS"/>
+    </kbase>
+
+</kmodule>

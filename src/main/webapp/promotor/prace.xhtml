@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:body>
+	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<p:dataTable var="praca" value="#{promotorPraceBean.prace}" rowStyleClass="text-align: center">
+					<f:facet name="header">
+						<h:outputText value="Prace przypisane do mnie" />
+					</f:facet>
+					<p:column headerText="Wymagana akcja" style="text-align: center; width:100px">
+						<h:outputText  styleClass="#{praca.status == 'WAITING_FOR_PROMOTOR_REC_CONFIRM' ? 'fa fa-exclamation' : ''}" 
+							style="color: red; font-size: 40px" />
+					</p:column>
+					<p:column headerText="Imię Studenta" sortBy="#{praca.student.imie}" filterBy="#{praca.student.imie}">
+						<h:outputText value="#{praca.student.imie}" />
+					</p:column>
+					<p:column headerText="Nazwisko Studenta" sortBy="#{praca.student.nazwisko}" filterBy="#{praca.student.nazwisko}">
+						<h:outputText value="#{praca.student.nazwisko}" />
+					</p:column>
+					<p:column headerText="Tytul pracy" sortBy="#{praca.tytulPracy}" filterBy="#{praca.tytulPracy}">
+						<h:outputText value="#{praca.tytulPracy}" />
+					</p:column>
+					<p:column headerText="Status pracy" sortBy="#{praca.status.toString()}" filterBy="#{praca.status.toString()}">
+						<h:outputText value="#{praca.status.toString()}" />
+					</p:column>
+					<p:column headerText="Szczegóły" style="width:80px">
+						<p:commandButton action="#{''.concat('/promotor/praca').concat('?id=').concat(praca.idPracy)}" icon="ui-icon-search" title="Przejdź do pracy">
+            			</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
