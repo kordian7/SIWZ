@@ -1,23 +1,18 @@
 package com.dkmp.student;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieSession;
 import org.primefaces.model.DualListModel;
 import org.springframework.context.annotation.Scope;
 
 import com.dkmp.auth.UserSessionBean;
 import com.dkmp.common.exceptions.ValidateException;
+import com.dkmp.common.utils.DroolsUtils;
 import com.dkmp.common.web.WebMessageAdder;
 import com.dkmp.dao.PracaDao;
 import com.dkmp.dao.RecenzentDao;
@@ -57,7 +52,7 @@ public class PracaBean implements Serializable {
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
 		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
-			validateRegulyBiznesowePracy();
+			DroolsUtils.validateRegulyBiznesowePracy(praca);
 			pracaDao.przeslijPropozycjeRecenzentowStudenta(praca);
 			praca.setStatus(Status.WAITING_FOR_PROMOTOR_REC_CONFIRM);
 			WebMessageAdder.addInfoMessage("Przes³ano propozycjê recenzentow");
@@ -72,24 +67,13 @@ public class PracaBean implements Serializable {
 		praca.setListaProponowanychRecenzentow(getWybraniRecenzenciFromPickList());
 		System.out.println("Size: " + praca.getListaProponowanychRecenzentow().size());
 		try {
-			validateRegulyBiznesowePracy();
+			DroolsUtils.validateRegulyBiznesowePracy(praca);
 			pracaDao.zatwierdzPropozycjeRecenzentow(praca);
 			praca.setStatus(Status.REC_CONFIRMED);
 			WebMessageAdder.addInfoMessage("Zatwierdzono recenzentow");
 		} catch (ValidateException e) {
 			WebMessageAdder.addErrorMessage(e.getMessage());
 		}
-	}
-	
-
-
-	private void validateRegulyBiznesowePracy() throws ValidateException {
-		KieSession kSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("PracaKS");
-		kSession.insert(praca);
-		kSession.fireAllRules();
-		kSession.dispose();
-		if (!praca.isPracaOk())
-			throw new ValidateException(praca.getPracaValidationError());
 	}
 	
 	private List<Recenzent> getWybraniRecenzenciFromPickList() {
@@ -108,24 +92,15 @@ public class PracaBean implements Serializable {
 	}
 	
 	private void zaladujPropozycjeRecenzentow() {
-		List<Recenzent> wybraniRecenzenci = filtrujRecenzentowWgZasadBiznesowych(praca.getListaProponowanychRecenzentow());
+		List<Recenzent> wybraniRecenzenci = DroolsUtils.filtrujRecenzentowWgZasadBiznesowych(praca.getListaProponowanychRecenzentow());
 		List<Recenzent> dostepniRecenzenci = filtrujRecenzentow(recenzentDao.getAllRecenzenci(), wybraniRecenzenci );
 		recenzenciPickListModel = new DualListModel<Recenzent>(dostepniRecenzenci, wybraniRecenzenci);
 	}
 	
 	private List<Recenzent> filtrujRecenzentow(List<Recenzent> wszyscyRecenzenci, List<Recenzent> wybraniRecenzenci) {
-		List<Recenzent> filtredRecenzenci = filtrujRecenzentowWgZasadBiznesowych(wszyscyRecenzenci);
+		List<Recenzent> filtredRecenzenci = DroolsUtils.filtrujRecenzentowWgZasadBiznesowych(wszyscyRecenzenci);
 		filtredRecenzenci.remove(wybraniRecenzenci);
 		return filtredRecenzenci;
-	}
-
-	private List<Recenzent> filtrujRecenzentowWgZasadBiznesowych(List<Recenzent> recenzenci) {
-		List<Recenzent> filtredRecenzenci = new ArrayList<Recenzent>(recenzenci);
-		KieSession kSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession("RecenzentKS");
-		filtredRecenzenci.forEach(rec -> kSession.insert(rec));
-		kSession.fireAllRules();
-		kSession.dispose();
-		return filtredRecenzenci.stream().filter(rec -> rec.isAvailable()).collect(Collectors.toList());
 	}
 
 	public Praca getPraca() {
