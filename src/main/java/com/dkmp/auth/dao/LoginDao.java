@@ -1,5 +1,8 @@
 package com.dkmp.auth.dao;
 
+import com.dkmp.auth.dto.LoginResponse;
+import com.dkmp.auth.exceptions.AuthenticationException;
+
 public interface LoginDao {
-	boolean validate(String username, String password);
+	LoginResponse authenticateUser(String username, String password) throws AuthenticationException;
 }

@@ -8,8 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.dkmp.dao.PracaDao;
 import com.dkmp.model.Praca;
-import com.dkmp.model.Promotor;
-import com.dkmp.model.Student;
 
 @Service
 public class PracaDaoImpl implements PracaDao {

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.annotation.Scope;
 
 import com.dkmp.auth.dao.LoginDao;
+import com.dkmp.auth.dto.LoginResponse;
+import com.dkmp.auth.exceptions.AuthenticationException;
 import com.dkmp.auth.utils.SessionUtils;
 
 @Named
@@ -29,15 +31,17 @@ public class LoginBean implements Serializable {
 
 	public String validateUser() {
 		// TODO stworzenie sesji
-		if (loginDao.validate(getUsername(), getPassword())) {
+		try {
+			LoginResponse loginResponse = loginDao.authenticateUser(getUsername(), getPassword());
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", getUsername());
-			session.setAttribute("userId", 1L /*TODO*/);
-			userSessionBean.initialize(getUsername(), 1L);
-			return "home?faces-redirect=true";
-		} else {
+			session.setAttribute("userId", Long.valueOf(loginResponse.getToken()));
+			userSessionBean.initialize(getUsername(), Long.valueOf(loginResponse.getToken()));
+			// TODO - dodanie roli
+			return "home";
+		} catch (AuthenticationException e) {
 			throwLoginErrorMessage();
-			return "login?faces-redirect=true";
+			return "login";
 		}
 	}
 	
