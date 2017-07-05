@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Scope;
 
 import com.dkmp.auth.UserSessionBean;
 import com.dkmp.common.exceptions.ValidateException;
+import com.dkmp.common.web.WebMessageAdder;
 import com.dkmp.dao.PracaDao;
 import com.dkmp.dao.RecenzentDao;
 import com.dkmp.model.Praca;
@@ -59,9 +60,9 @@ public class PracaBean implements Serializable {
 			validateRegulyBiznesowePracy();
 			pracaDao.przeslijPropozycjeRecenzentowStudenta(praca);
 			praca.setStatus(Status.WAITING_FOR_PROMOTOR_REC_CONFIRM);
-			throwInfoMessage("Przes³ano propozycjê recenzentow");
+			WebMessageAdder.addInfoMessage("Przes³ano propozycjê recenzentow");
 		} catch (ValidateException e) {
-			throwErrorMessage(e.getMessage());
+			WebMessageAdder.addErrorMessage(e.getMessage());
 		}
 	}
 	
@@ -74,9 +75,9 @@ public class PracaBean implements Serializable {
 			validateRegulyBiznesowePracy();
 			pracaDao.zatwierdzPropozycjeRecenzentow(praca);
 			praca.setStatus(Status.REC_CONFIRMED);
-			throwInfoMessage("Zatwierdzono recenzentow");
+			WebMessageAdder.addInfoMessage("Zatwierdzono recenzentow");
 		} catch (ValidateException e) {
-			throwErrorMessage(e.getMessage());
+			WebMessageAdder.addErrorMessage(e.getMessage());
 		}
 	}
 	
@@ -89,14 +90,6 @@ public class PracaBean implements Serializable {
 		kSession.dispose();
 		if (!praca.isPracaOk())
 			throw new ValidateException(praca.getPracaValidationError());
-	}
-
-	private void throwErrorMessage(String message) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "B³¹d", message));
-	}
-
-	private void throwInfoMessage(String message) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", message));
 	}
 	
 	private List<Recenzent> getWybraniRecenzenciFromPickList() {
