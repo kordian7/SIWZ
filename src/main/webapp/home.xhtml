@@ -10,9 +10,15 @@
 
 <h:body>
 	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
-		<ui:define name="content">
-			<h:form>
-      			Witaj #{userSessionBean.username}
+		<ui:define name="content" >
+			<h:form style="text-align:center;">
+      			<span style="font-size:30px;position:relative;top:15px">
+      				Witaj w Portalu Prac Studenta
+      			</span>
+      			<br/><br/>
+      			<span style="font-size:15px;position:relative;top:20px">
+      				Skorzystaj z opcji dostępnych w menu
+      			</span>
 			</h:form>
 		</ui:define>
 	</ui:composition>

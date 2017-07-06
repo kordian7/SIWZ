@@ -12,7 +12,7 @@
 	<ui:composition template="/WEB-INF/protected/template/template.xhtml">
 		<ui:define name="content">
 			<h:form>
-				<p:dataTable var="praca" value="#{promotorPraceBean.prace}" rowStyleClass="text-align: center">
+				<p:dataTable styleClass="page-content" var="praca" value="#{promotorPraceBean.prace}" rowStyleClass="text-align: center">
 					<f:facet name="header">
 						<h:outputText value="Prace przypisane do mnie" />
 					</f:facet>
