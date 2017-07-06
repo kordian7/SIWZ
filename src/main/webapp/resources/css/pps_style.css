@@ -1,16 +1,43 @@
 @CHARSET "UTF-8";
 
-.header-panelgrid.ui-panelgrid>*>tr,
-.header-panelgrid.ui-panelgrid>*>tr>td {
-    border: none;
+.header-panelgrid.ui-panelgrid>*>tr, .header-panelgrid.ui-panelgrid>*>tr>td
+	{
+	border: none;
 }
 
-// Do poprawy scrolle w headerze i w headerze contentu
+//
+Do poprawy scrolle w headerze i w headerze contentu
 .no-overflow {
 	overflow-x: hidden;
 	overflow-y: hidden;
 }
-// Ukrycie komentarza przy pustym dataList
+
+//
+Ukrycie komentarza przy pustym dataList
 .ui-datalist-empty-message {
-    display: none;
+	display: none;
+}
+
+.ui-layout-north {
+	overflow-x: hidden !important;
+	overflow-y: hidden !important;
+}
+
+.ui-layout-center {
+	background-image: url('/PortalPrac/resources/css/vintage-leaves.png');
+}
+
+.ui-menuitem-link {
+	margin: 0px 5px 0px 5px !important;
+}
+
+.page-content {
+	margin: auto !important;
+}
+
+.login-panelgrid {
+	top: 35%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
 }

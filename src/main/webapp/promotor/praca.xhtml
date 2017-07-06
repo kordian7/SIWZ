@@ -25,12 +25,12 @@
 					</p:menubar>
 				</h:form>
 			</pe:layoutPane>
-			<pe:layoutPane id="praca-content" position="center" resizable="false"
-				closable="false" spacingOpen="0">
+			<pe:layoutPane id="praca-content" position="center" resizable="false" styleClass="background-im"
+				closable="false" spacingOpen="0" style="background-image: url('/PortalPrac/resources/css/vintage-leaves.png');">
 				<h:form rendered="#{promotorPracaBean.isPracaValidPromotorPraca()}">
 				
 					<p:growl autoUpdate="true" showDetail="true" />
-					<p:panelGrid colspan="2">
+					<p:panelGrid colspan="2" styleClass="page-content">
 						<p:row>
 							<p:column>
 								<h:outputLabel for="praca-student" value="Student: " />
@@ -40,7 +40,7 @@
 							<p:column rowspan="3">
 								<p:pickList id="recenzent-picklist"
 									rendered="#{promotorPracaBean.praca.status != 'REC_CONFIRMED'}"
-									disabled="#{promotorPracaBean.praca.status == 'WAITING_FOR_STUDENT_REC_CONFIRM'}"
+									disabled="#{promotorPracaBean.praca.status == 'WAITING_FOR_STUDENT_REC_CONFIRM' or promotorPracaBean.praca.status == 'WAITING_FOR_REC_CHOOSE'}"
 									value="#{promotorPracaBean.recenzenciPickListModel}" var="rec"
 									itemValue="#{rec}" itemLabel="#{rec.formattedInfo}"
 									showCheckbox="true" responsive="true" showSourceFilter="true"
@@ -51,7 +51,7 @@
 										update=":#{p:component('actions-menubar')}" />
 								</p:pickList>
 								<p:dataList id="recenzent-list" value="#{promotorPracaBean.praca.listaRecenzentow}"
-									rendered="#{promotorPracaBean.praca.status == 'REC_CONFIRMED' or promotorPracaBean.praca.status == 'WAITING_FOR_REC_CHOOSE'}"
+									rendered="#{promotorPracaBean.praca.status == 'REC_CONFIRMED'}"
 									var="rec" type="ordered">
 									<f:facet name="header">
 										<h:outputText value="Wybrani recenzenci" />
